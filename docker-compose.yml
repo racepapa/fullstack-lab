@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    # volumes を削除
+    # volumes:
+    #   - ./backend:/app
+    # ./main の代わりに /main にビルドするようDockerfile修正すれば以下でOK
+    command: ["/main"]
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: ["npm", "run", "dev"]
